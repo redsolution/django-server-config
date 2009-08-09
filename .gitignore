@@ -1,0 +1,8 @@
+.svn
+*.orig
+*.pyc
+*.sh
+*.sql
+.project
+.pydevproject
+.settings
