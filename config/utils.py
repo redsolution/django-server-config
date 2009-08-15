@@ -8,8 +8,7 @@ from django.template.loader import render_to_string
 def make_config(template_name):
     from config.settings import media_url, media_path, \
         admin_media_url, admin_media_path, project_name, project_file, \
-        config_media_paths, config_url, config_redirects, config_auth, \
-        settings
+        media_paths, sites, redirects, need_auth, settings
     return render_to_string(template_name, locals())
 
 def make_path(path):
@@ -40,7 +39,7 @@ def import_model(name):
     return model
 
 
-def get_config_media_paths():
+def get_media_paths():
     # At compile time, cache the directories to search.
     fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
     paths = {}
