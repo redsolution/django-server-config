@@ -4,6 +4,8 @@ import sys
 from django.conf import settings
 from django.contrib import admin
 from django.template.loader import render_to_string
+from django.core.exceptions import ImproperlyConfigured
+
 
 def make_config(template_name):
     from config.settings import media_url, media_path, \
