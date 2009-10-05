@@ -1,0 +1,101 @@
+h1. Install
+
+h2. Buildout
+
+buildout.cfg:
+<pre>
+[buildout]
+parts = ...
+        django-config
+        make-config
+
+[django]
+extra-paths = ...
+              ${django-config:location}
+
+
+[django-config]
+recipe = zerokspot.recipe.git
+repository = git://verne.redsolution.ru/django-config.git
+
+[make-config]
+recipe = iw.recipe.cmd
+on_install = true
+on_update = true
+cmds = sudo rm -f bin/init.d bin/lighttpd bin/logrotate bin/monit
+       sudo bin/django make_config init.d > bin/init.d
+       sudo bin/django make_config lighttpd > bin/lighttpd
+       sudo bin/django make_config logrotate > bin/logrotate
+       sudo bin/django make_config monit > bin/monit
+       sudo chown root:root bin/init.d bin/lighttpd bin/logrotate bin/monit
+       sudo chmod ug=rwx,o=rx bin/init.d
+       sudo chmod ug=rw,o=r bin/lighttpd bin/logrotate bin/monit
+       echo Configs were saved to "bin/"
+</pre>
+
+develop.cfg:
+<pre>
+[make-config]
+cmds = 
+</pre>
+
+h2. settings.py
+
+<pre>
+INSTALLED_APPS = (
+...
+    'config',
+)
+...
+# django-config settings
+CONFIG_SITES = ['www.project-name.com', ]
+CONFIG_REDIRECTS = ['project-name.com', ]
+CONFIG_APP_MEDIA = {
+#    'application-name': [
+#        ('media-root', 'media-url', ),
+#    ]
+}
+</pre>
+
+h2. urls.py
+
+<pre>
+...
+if settings.DEBUG:
+    urlpatterns += patterns('', (r'^', include('config.urls')))
+    urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', 
+         {'document_root': settings.MEDIA_ROOT}),
+    )
+...
+</pre>
+
+h1. Apply on server
+
+h2. init.d
+
+<pre>
+$ sudo ln -s /var/sites/<project-name>/bin/init.d /etc/init.d/<project-name>
+</pre>
+
+h2. lighttpd
+
+<pre>
+$ sudo ln -s /var/sites/<project-name>/bin/lighttpd /etc/lighttpd/conf-available/11-<project-name>.conf
+$ sudo ln -s /etc/lighttpd/conf-available/11-<project-name>.conf /etc/lighttpd/conf-enabled/11-<project-name>.conf
+$ sudo invoke-rc.d lighttpd reload
+</pre>
+
+h2. logrotate
+
+<pre>
+$ sudo ln -s /var/sites/<project-name>/bin/logrotate /etc/logrotate.d/<project-name>
+</pre>
+
+h2. monit
+
+<pre>
+$ sudo ln -s /var/sites/<project-name>/bin/monit /etc/monit/services-available/<project-name>
+$ sudo ln -s /etc/monit/services-available/<project-name> /etc/monit/services-enabled/<project-name>
+$ sudo monit reload
+</pre>
