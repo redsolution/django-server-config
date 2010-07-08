@@ -1,0 +1,17 @@
+{% extends "grandma/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" action="">
+        <table id="start">
+            <tr><th>{% trans 'Domains' %}</th></tr>
+            {{ site_formset.as_table }}
+            <tr><th>{% trans 'Redirects' %}</th></tr>
+            {{ redirect_formset.as_table }}
+        </table>
+        <div>
+            <a href="{% url custom %}" class="button-link floated-button">{% trans 'Back' %}</a>
+            <input type="submit" value="{% trans 'Done' %}" class="input-bg floated-button" />
+        </div>
+    </form>
+{% endblock %}
