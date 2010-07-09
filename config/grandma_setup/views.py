@@ -19,8 +19,8 @@ def index(request):
             redirect_formset.save()
             return HttpResponseRedirect(reverse('custom'))
     else:
-        site_formset = site_formset_class(data=request.POST, files=request.FILES, instance=config_settings)
-        redirect_formset = redirect_formset_class(data=request.POST, files=request.FILES, instance=config_settings)
+        site_formset = site_formset_class(instance=config_settings)
+        redirect_formset = redirect_formset_class(instance=config_settings)
     return render_to_response('config/grandma/index.html', {
         'site_formset': site_formset,
         'redirect_formset': redirect_formset,
