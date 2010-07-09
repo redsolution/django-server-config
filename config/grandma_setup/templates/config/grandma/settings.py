@@ -2,7 +2,7 @@
 INSTALLED_APPS += ['config']
 
 CONFIG_SITES = [{% for site in config_settings.sites.all %}
-    '{{ site.site }}', { % endfor % }
+    '{{ site.site }}', {% endfor %}
 ]
 CONFIG_REDIRECTS = [{% for site in config_settings.redirects.all %}
     '{{ site.site }}', {% endfor %}
