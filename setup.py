@@ -10,12 +10,12 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name="grandma.django-serverconfig",
+    name="grandma.django-server-config",
     version="0.1.0",
     description=("Django application wich creates useful configs with management commands" +
         " with GrandmaCMS integration"),
     license="LGPL",
-    keywords="django config management",
+    keywords="django news",
 
     author="Alexander Ivanov",
     author_email="alexander.ivanov@redsolution.ru",
@@ -23,7 +23,7 @@ setup(
     maintainer='Ivan Gromov',
     maintainer_email='ivan.gromov@redsolution.ru',
 
-    url="http://packages.python.org/django-config",
+    url="http://packages.python.org/django-server-config",
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Buildout',
@@ -35,8 +35,9 @@ setup(
         'Programming Language :: Python :: 2.5',
         'Topic :: Software Development :: Version Control',
     ],
-    packages=['config.%s' % p for p in find_packages('config')],
+    packages=find_packages(),
     install_requires=[],
+    include_package_data=True,
     zip_safe=False,
     long_description=open('README').read(),
     entry_points={
