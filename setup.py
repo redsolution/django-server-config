@@ -35,11 +35,9 @@ setup(
         'Programming Language :: Python :: 2.5',
         'Topic :: Software Development :: Version Control',
     ],
-
-    packages=['config', 'config.grandma_setup',],
-    include_package_data = True,
+    packages=['config.%s' % p for p in find_packages('config')],
     install_requires=[],
-    zip_safe=True,
+    zip_safe=False,
     long_description=open('README').read(),
     entry_points={
         'grandma_setup': ['config = config.grandma_setup', ],
