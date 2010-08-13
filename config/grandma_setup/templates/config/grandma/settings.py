@@ -7,11 +7,11 @@ CONFIG_SITES = [{% for site in config_settings.sites.all %}
 CONFIG_REDIRECTS = [{% for site in config_settings.redirects.all %}
     '{{ site.site }}', {% endfor %}
 ]
-#CONFIG_APP_MEDIA = {
-#    'pages': [
-#        ('pages', 'pages',),
-#    ],
-#    'feedback': [
-#        ('feedback', 'feedback',),
-#    ]
-#}
+
+{% for app in config_settings.appmedia.all %}
+CONFIG_APP_MEDIA = {
+    '{{ app.appname }}': [
+        ('{{ app.source }}', '{{ app.target }}',),
+    ],
+}
+{% endfor %}

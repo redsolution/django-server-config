@@ -24,3 +24,9 @@ class ConfigSite(models.Model):
 class ConfigRedirect(models.Model):
     settings = models.ForeignKey(ConfigSettings, related_name='redirects')
     site = models.CharField(verbose_name=_('site'), max_length=255)
+
+class ConfigAppMedia(models.Model):
+    settings = models.ForeignKey(ConfigSettings, related_name='appmedia')
+    appname = models.CharField(verbose_name=_('Application name'))
+    source = models.CharField(verbose_name=_('Source dir'))
+    target = models.CharField(verbose_name=_('target dir'))
