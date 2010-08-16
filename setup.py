@@ -10,12 +10,12 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name="grandma.django-server-config",
+    name="redsolutioncms.django-server-config",
     version="0.1.0",
     description=("Django application wich creates useful configs with management commands" +
-        " with GrandmaCMS integration"),
+        " with RedsolutionCMS integration"),
     license="LGPL",
-    keywords="django news",
+    keywords="django config lighttpd apache monit",
 
     author="Alexander Ivanov",
     author_email="alexander.ivanov@redsolution.ru",
@@ -26,14 +26,15 @@ setup(
     url="http://packages.python.org/django-server-config",
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'Framework :: Buildout',
         'Intended Audience :: Developers',
         'License :: Freely Distributable',
+        'Framework :: Django',
+        'Environment :: Web Environment',
         'Natural Language :: Russian',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: Unix',
-        'Programming Language :: Python :: 2.5',
-        'Topic :: Software Development :: Version Control',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     packages=find_packages(),
     install_requires=[],

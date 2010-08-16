@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from django.conf.urls.defaults import patterns, url
+from config.grandma_setup.admin import ConfigSettingsAdmin
+admin_instance = ConfigSettingsAdmin()
 
 urlpatterns = patterns('',
-    url(r'^$', 'config.grandma_setup.views.index', name='config_index'),
+    url(r'^$', admin_instance.change_view, name='config_index'),
 )

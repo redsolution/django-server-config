@@ -9,10 +9,11 @@ class ConfigSettingsManager(models.Manager):
         if self.get_query_set().count():
             return self.get_query_set()[0]
         else:
-            grandma_settings = GrandmaSettings.objects.get_settings()
+            cms_settings = GrandmaSettings.objects.get_settings()
             config_settings = self.get_query_set().create()
-            ConfigSite.objects.create(settings=config_settings, site='www.%s.com' % grandma_settings.project_name)
-            ConfigRedirect.objects.create(settings=config_settings, site='%s.com' % grandma_settings.project_name)
+            ConfigSite.objects.create(settings=config_settings, site='www.%s.com' % cms_settings.project_name)
+            ConfigRedirect.objects.create(settings=config_settings, site='%s.com' % cms_settings.project_name)
+            return config_settings
 
 class ConfigSettings(BaseSettings):
     objects = ConfigSettingsManager()
@@ -27,6 +28,6 @@ class ConfigRedirect(models.Model):
 
 class ConfigAppMedia(models.Model):
     settings = models.ForeignKey(ConfigSettings, related_name='appmedia')
-    appname = models.CharField(verbose_name=_('Application name'))
-    source = models.CharField(verbose_name=_('Source dir'))
-    target = models.CharField(verbose_name=_('target dir'))
+    appname = models.CharField(verbose_name=_('Application name'), max_length=255)
+    source = models.CharField(verbose_name=_('Source dir'), max_length=255)
+    target = models.CharField(verbose_name=_('target dir'), max_length=255)

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from grandma.admin import GrandmaBaseAdmin
 from config.grandma_setup.models import ConfigSettings, ConfigSite, ConfigRedirect
 
 class ConfigSiteInline(admin.TabularInline):
@@ -7,11 +8,6 @@ class ConfigSiteInline(admin.TabularInline):
 class ConfigRedirectInline(admin.TabularInline):
     model = ConfigRedirect
 
-class GrandmaApplicationForm(admin.ModelAdmin):
+class ConfigSettingsAdmin(GrandmaBaseAdmin):
     model = ConfigSettings
     inlines = [ConfigSiteInline, ConfigRedirectInline]
-
-try:
-    admin.site.register(ConfigSettings, GrandmaApplicationForm)
-except admin.sites.AlreadyRegistered:
-    pass
