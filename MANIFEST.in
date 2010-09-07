@@ -1,4 +1,2 @@
-recursive-include config *.html
-recursive-include config *.cfg
-recursive-include config *.conf
-recursive-include config/redsolution_setup *.py
+recursive-include config *
+exclude *.orig *.pyc
