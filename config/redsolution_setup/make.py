@@ -20,3 +20,5 @@ class Make(BaseMake):
         cms_settings.render_to(os.path.join('..', 'develop.cfg'), 'config/redsolutioncms/develop.cfg', {
             'config_settings': config_settings,
         })
+
+make = Make()
