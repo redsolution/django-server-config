@@ -42,6 +42,6 @@ setup(
     zip_safe=False,
     long_description=open('README').read(),
     entry_points={
-        'grandma_setup': ['config = config.grandma_setup', ],
+        'redsolutioncms': ['config = config.redsolution_setup', ],
     }
 )
