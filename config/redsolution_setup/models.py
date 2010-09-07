@@ -2,14 +2,14 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from grandma.models import BaseSettings, GrandmaSettings
+from redsolutioncms.models import BaseSettings, CMSSettings
 
 class ConfigSettingsManager(models.Manager):
     def get_settings(self):
         if self.get_query_set().count():
             return self.get_query_set()[0]
         else:
-            cms_settings = GrandmaSettings.objects.get_settings()
+            cms_settings = CMSSettings.objects.get_settings()
             config_settings = self.get_query_set().create()
             ConfigSite.objects.create(settings=config_settings, site='www.%s.com' % cms_settings.project_name)
             ConfigRedirect.objects.create(settings=config_settings, site='%s.com' % cms_settings.project_name)
