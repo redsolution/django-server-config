@@ -1,4 +1,5 @@
-# ------------  django-server-config ----------------
+# ---- django-server-config ----
+
 INSTALLED_APPS += ['config']
 
 CONFIG_SITES = [{% for site in config_settings.sites.all %}
