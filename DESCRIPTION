@@ -1,0 +1,3 @@
+Useful for deploy server installation. 
+Adds management command to make configs for your project. 
+Automatically recognizes media directories in 3-party applications

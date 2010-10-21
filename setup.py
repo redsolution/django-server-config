@@ -7,13 +7,15 @@ from setuptools import setup, find_packages
 # README file and 2) it's easier to type in the README file than to put a raw
 # string in below ...
 def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    try:
+        return open(os.path.join(os.path.dirname(__file__), fname)).read()
+    except IOError:
+        return ''
 
 setup(
     name="redsolutioncms.django-server-config",
-    version="0.1.0",
-    description=("Django application wich creates useful configs with management commands" +
-        " with RedsolutionCMS integration"),
+    version=__import__('config').__version__,
+    description=read('DESCRIPTION'),
     license="LGPL",
     keywords="django config lighttpd apache monit",
 
@@ -23,7 +25,7 @@ setup(
     maintainer='Ivan Gromov',
     maintainer_email='ivan.gromov@redsolution.ru',
 
-    url="http://packages.python.org/django-server-config",
+#    url="http://packages.python.org/django-server-config",
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
@@ -40,7 +42,7 @@ setup(
     install_requires=[],
     include_package_data=True,
     zip_safe=False,
-    long_description=open('README').read(),
+    long_description=read('README'),
     entry_points={
         'redsolutioncms': ['config = config.redsolution_setup', ],
     }
