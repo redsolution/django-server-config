@@ -16,7 +16,7 @@ setup(
     name="redsolutioncms.django-server-config",
     version=__import__('config').__version__,
     description=read('DESCRIPTION'),
-    license="LGPL",
+    license="GPLv3",
     keywords="django config lighttpd apache monit",
 
     author="Alexander Ivanov",
