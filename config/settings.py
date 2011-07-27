@@ -3,7 +3,7 @@ import sys
 
 from django.conf import settings
 from django.contrib import admin
-from config.utils import make_path, make_url, get_media_paths
+from config.utils import make_path, make_url, get_media_paths, STATIC_FILES_INSTALLED
 
 media_url = make_url(getattr(settings, 'MEDIA_URL'))
 media_path = make_path(getattr(settings, 'MEDIA_ROOT'))
@@ -18,4 +18,8 @@ sites = getattr(settings, 'CONFIG_SITES', ['www.example.com'])
 redirects = getattr(settings, 'CONFIG_REDIRECTS', ['example.com'])
 need_auth = getattr(settings, 'CONFIG_NEED_AUTH', False)
 
-media_paths = get_media_paths()
+static_url = getattr(settings, 'STATIC_URL', None)
+static_root = getattr(settings, 'STATIC_ROOT', None)
+
+media_paths = [] if STATIC_FILES_INSTALLED else get_media_paths()
+

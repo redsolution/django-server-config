@@ -1,16 +1,21 @@
 import os
 import sys
+import warnings
 
 from django.conf import settings
 from django.contrib import admin
 from django.template.loader import render_to_string
 from django.core.exceptions import ImproperlyConfigured
 
+STATIC_FILES_INSTALLED = ('staticfiles' in settings.INSTALLED_APPS or
+    'django.contrib.staticfiles' in settings.INSTALLED_APPS)
 
 def make_config(template_name):
     from config.settings import media_url, media_path, \
         admin_media_url, admin_media_path, project_name, project_file, \
-        media_paths, sites, redirects, need_auth, settings
+        media_paths, sites, redirects, need_auth, settings, static_url, \
+        static_root
+    staticfiles = STATIC_FILES_INSTALLED
     return render_to_string(template_name, locals())
 
 def make_path(path):
@@ -30,7 +35,7 @@ def import_model(name):
     if i == -1:
         m, a = name, None
     else:
-        m, a = name[:i], name[i+1:]
+        m, a = name[:i], name[i + 1:]
     try:
         if a is None:
             model = __import__(m, {}, {}, [])
@@ -42,13 +47,18 @@ def import_model(name):
 
 
 def get_media_paths():
+    if STATIC_FILES_INSTALLED:
+        warnings.warn(
+            'Use staticfiles application for deliver static files, this part in django-server-config is deprecated!',
+            DeprecationWarning
+        )
     # At compile time, cache the directories to search.
     fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
     paths = {}
 
     apps = {}
     for model, value in getattr(settings, 'CONFIG_APP_MEDIA', {}).iteritems():
-        apps[import_model(model)] = value 
+        apps[import_model(model)] = value
 
     for app in settings.INSTALLED_APPS:
         model = import_model(app)
@@ -74,5 +84,5 @@ def get_media_paths():
                     paths[url] = make_path(os.path.join(media_dir_decoded, dir))
 
     # It won't change, so convert it to a tuple to save memory.
-    paths = tuple( [ (url, path) for url, path in paths.iteritems() ] )
+    paths = tuple([ (url, path) for url, path in paths.iteritems() ])
     return paths
