@@ -78,6 +78,22 @@ In buildout.cfg:
        sudo chmod ug=rwx,o=rx bin/init.d bin/django bin/buildout
        echo Configs were saved to "bin/"
 
+Staticfiles support
+====================
+
+Since 0.1.1 server-config supports ``django.contrib.staticfiles`` and ``staticfiles`` apps. If one of them present in ``INSTALLED_APPS``, config for webserver will be generated with appropriate rewrite rule.
+
+If ``staticfiles`` is used there is no need to include ``config.urls`` in ``urlconf.py``. On the other hand, probably you will want to include ``staticfiles_urlpatterns()`` from staticfiles app (see: `django documentation <https://docs.djangoproject.com/en/dev/howto/static-files/#serving-static-files-in-development>`_
+ about it) ::
+
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()
+
+History
+========
+
+* 0.1.0 - Initial commit
+* 0.1.1 - Staticfiles support added
 
 Classifiers:
 -------------
