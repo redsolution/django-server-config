@@ -22,32 +22,38 @@ In settings.py:
 
     CONFIG_REDIRECTS = ['project-name.com', ]
 
-4. Set path to media for unusual 3-party application ::
+4. Serving static files
 
-    CONFIG_APP_MEDIA = {
-        'application-name': [
-            ('media-root', 'media-url', ),
-        ]
-    }
+    Set path to media for unusual 3-party application ::
 
-Media folders with same name as application modulde will be added automatically.
-For example, in ``tinymce`` module media files ::
+        CONFIG_APP_MEDIA = {
+            'application-name': [
+                ('media-root', 'media-url', ),
+            ]
+        }
 
-    tinymce/
-        media/
-            tinymce/
-                js/tinymce.js
-                css/style.css
+    Media folders with same name as application modulde will be added     automatically.
+    For example, in ``tinymce`` module media files ::
+
+        tinymce/
+            media/
+                tinymce/
+                    js/tinymce.js
+                    css/style.css
     
-will be available at url
+    will be available at url::
 
-    /media/tinymce/js/tinymce.js
-    /media/tinymce/css/style.js
+        /media/tinymce/js/tinymce.js
+        /media/tinymce/css/style.js
+
+**Stop! Aren't Django staticfiles do that?**
+
+Yes, they do. But django-servre-config is older than staticfiles and does same job. This feature will is deprecated and will not be supported since 0.2.x release. We recommend to use Django contrib application ``django.contrib.statifiles``. Read below about how to do it.
 
 In urls.py:
 -----------
 
-5. Add config to urls.py for serve static files in debug mode. Add it BEFORE ``django.views.static.serve`` ::
+5. If you use ``django-server-config`` for serving static media, add following code to the urls.py for serve static files in debug mode. Add it BEFORE ``django.views.static.serve`` ::
 
     if settings.DEBUG:
         urlpatterns += patterns('', (r'^', include('config.urls')))
@@ -82,6 +88,11 @@ In buildout.cfg:
        sudo chmod ug=rw,o=r bin/*
        sudo chmod ug=rwx,o=rx bin/init.d bin/django bin/buildout
        echo Configs were saved to "bin/"
+
+**Without bulidout**
+
+If you are not using zc.buildlout, you can add to repository shell script with commands above, it will give same effect.
+
 
 Staticfiles support
 ====================
