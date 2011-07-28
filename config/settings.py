@@ -23,3 +23,6 @@ static_root = getattr(settings, 'STATIC_ROOT', None)
 
 media_paths = [] if STATIC_FILES_INSTALLED else get_media_paths()
 
+duply_globals = getattr(settings, 'BACKUP_DUPLY_CONFIG', None)
+# Directory for database dumps, by default it is ``/var/backups/postgres``
+duply_db_backup_temp_dir = getattr(settings, 'BACKUP_TEMP_DIR', '/var/backups/postgres')

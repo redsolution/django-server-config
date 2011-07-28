@@ -67,6 +67,11 @@ In buildout.cfg:
        bin/django make_config lighttpd > bin/lighttpd
        bin/django make_config logrotate > bin/logrotate
        bin/django make_config monit > bin/monit
+       ; Enable backups with duply & duplicity (http://duplicity.nongnu.org)
+       bin/django make_config duply_conf > bin/duply_conf
+       bin/django make_config duply_pre > bin/duply_pre
+       bin/django make_config duply_post > bin/duply_post
+       bin/django make_config duply_exclude > bin/duply_exclude 
        
        bin/django make_config install.py > bin/install.py
        bin/django make_config uninstall.py > bin/uninstall.py

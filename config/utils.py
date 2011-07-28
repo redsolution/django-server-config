@@ -1,6 +1,7 @@
 import os
 import sys
 import warnings
+import ConfigParser
 
 from django.conf import settings
 from django.contrib import admin
@@ -14,7 +15,9 @@ def make_config(template_name):
     from config.settings import media_url, media_path, \
         admin_media_url, admin_media_path, project_name, project_file, \
         media_paths, sites, redirects, need_auth, settings, static_url, \
-        static_root
+        static_root, duply_db_backup_temp_dir
+    duply_globals = get_backup_config()
+    project_root = get_project_root()
     staticfiles = STATIC_FILES_INSTALLED
     return render_to_string(template_name, locals())
 
@@ -86,3 +89,23 @@ def get_media_paths():
     # It won't change, so convert it to a tuple to save memory.
     paths = tuple([ (url, path) for url, path in paths.iteritems() ])
     return paths
+
+#===============================================================================
+# Backup routines
+#===============================================================================
+def get_project_root():
+    urlconf_module = import_model(settings.ROOT_URLCONF)
+    return os.path.abspath(os.path.dirname(os.path.dirname(urlconf_module.__file__)))
+
+def get_backup_config():
+    from config.settings import duply_globals
+
+    if duply_globals is not None:
+        config = ConfigParser.RawConfigParser()
+        try:
+            config.read(duply_globals)
+        except IOError:
+            raise
+        return config.items('duply')
+    else:
+        return None
