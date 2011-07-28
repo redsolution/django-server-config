@@ -39,7 +39,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     packages=find_packages(),
-    install_requires=[],
+    install_requires=['ordereddict ==1.1'],
     include_package_data=True,
     zip_safe=False,
     long_description=read('README'),

@@ -144,9 +144,8 @@ Moreover, you can use ours config template::
     MAX_AGE=1M
     MAX_FULL_BACKUPS=5
     MAX_FULLBKP_AGE=1W
-    DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE " 
     VOLSIZE=50
-    DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
+    DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE --volsize $VOLSIZE "
 
 This template encrypts backups with GPG and uplaod to AmazonS3 bucket ``com.mycompany.server``.
 

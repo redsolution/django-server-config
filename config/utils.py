@@ -100,9 +100,13 @@ def get_project_root():
 
 def get_backup_config():
     from config.settings import duply_globals, project_name
+    try:
+        from collections import OrderedDict
+    except:
+        from ordereddict import OrderedDict
 
     if duply_globals is not None:
-        config = ConfigParser.RawConfigParser()
+        config = ConfigParser.RawConfigParser(dict_type=OrderedDict)
         try:
             config.read(duply_globals)
         except IOError:
