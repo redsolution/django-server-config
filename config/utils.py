@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import warnings
 import ConfigParser
@@ -98,7 +99,7 @@ def get_project_root():
     return os.path.abspath(os.path.dirname(os.path.dirname(urlconf_module.__file__)))
 
 def get_backup_config():
-    from config.settings import duply_globals
+    from config.settings import duply_globals, project_name
 
     if duply_globals is not None:
         config = ConfigParser.RawConfigParser()
@@ -106,6 +107,11 @@ def get_backup_config():
             config.read(duply_globals)
         except IOError:
             raise
+
+        # Find TAGET setting and append project name:
+        target = config.get('duply', 'target')
+        target = re.sub('^[\'\"](.*)[\'\"]$', '"\g<1>%s"' % project_name, target)
+        config.set('duply', 'target', target)
         return config.items('duply')
     else:
         return None
