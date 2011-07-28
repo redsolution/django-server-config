@@ -138,6 +138,7 @@ Then look at ~/.duply/<profile>/conf and follow comments.
 
 Moreover, you can use ours config template::
 
+    [duply]
     GPG_PW='**********'
     TARGET='s3+http://**********@com.mycompany.server/'
     SOURCE='/'
