@@ -78,6 +78,11 @@ In buildout.cfg:
        bin/django make_config duply_pre > bin/duply_pre
        bin/django make_config duply_post > bin/duply_post
        bin/django make_config duply_exclude > bin/duply_exclude 
+
+       # Collect static automaticaly
+       sudo rm -Rf static
+       bin/django collectstatic -l ---noinput
+       sudo chown www-data:www-data -R static
        
        bin/django make_config install.py > bin/install.py
        bin/django make_config uninstall.py > bin/uninstall.py

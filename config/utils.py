@@ -16,7 +16,7 @@ def make_config(template_name):
     from config.settings import media_url, media_path, \
         admin_media_url, admin_media_path, project_name, project_file, \
         media_paths, sites, redirects, need_auth, settings, static_url, \
-        static_root, duply_db_backup_temp_dir
+        static_path, duply_db_backup_temp_dir
     duply_globals = get_backup_config()
     project_root = get_project_root()
     staticfiles = STATIC_FILES_INSTALLED
