@@ -162,6 +162,7 @@ History
 * 0.1.0 - Initial commit
 * 0.1.1 - Staticfiles support added
 * 0.1.2 - Duply backups support
+* 0.1.3 - Emergency lighttpd config fix (staticfiles didn't work), don't use v0.1.1!
 
 Classifiers:
 -------------
