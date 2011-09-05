@@ -18,8 +18,10 @@ sites = getattr(settings, 'CONFIG_SITES', ['www.example.com'])
 redirects = getattr(settings, 'CONFIG_REDIRECTS', ['example.com'])
 need_auth = getattr(settings, 'CONFIG_NEED_AUTH', False)
 
-static_url = make_url(getattr(settings, 'STATIC_URL'))
-static_path = make_path(getattr(settings, 'STATIC_ROOT'))
+if hasattr(settings, 'STATIC_URL'):
+    static_url = make_url(getattr(settings, 'STATIC_URL'))
+if hasattr(settings, 'STATIC_ROOT'):
+    static_path = make_path(getattr(settings, 'STATIC_ROOT'))
 
 media_paths = [] if STATIC_FILES_INSTALLED else get_media_paths()
 
